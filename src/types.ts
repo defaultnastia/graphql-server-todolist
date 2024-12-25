@@ -1,7 +1,7 @@
 import { UUID } from "crypto";
 
 export interface TasksQueryArgs {
-  isCompleted?: true;
+  completed?: boolean;
   range?: {
     startDate: Date;
     endDate: Date;
