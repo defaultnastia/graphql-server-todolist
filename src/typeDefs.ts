@@ -1,11 +1,9 @@
 import gql from "graphql-tag";
-import { DateTimeISOTypeDefinition, UUIDDefinition } from "graphql-scalars";
+import { DateTimeISOTypeDefinition } from "graphql-scalars";
 
 const typeDefs = [
   DateTimeISOTypeDefinition,
-  UUIDDefinition,
   gql`
-    scalar UUID
     scalar DateTimeISO
 
     type Query {
@@ -14,7 +12,7 @@ const typeDefs = [
     }
 
     type Task {
-      id: UUID!
+      id: ID!
       title: String!
       description: String
       completed: Boolean!
