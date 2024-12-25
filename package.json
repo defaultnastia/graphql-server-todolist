@@ -1,0 +1,31 @@
+{
+  "name": "graphql-server-todolist",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "compile": "tsc",
+    "start": "npm run compile && node dist/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@apollo/server": "^4.11.2",
+    "@graphql-tools/schema": "^10.0.14",
+    "apollo-server-core": "^3.13.0",
+    "graphql": "^16.10.0",
+    "graphql-constraint-directive": "^6.0.0",
+    "graphql-scalars": "^1.24.0",
+    "graphql-tag": "^2.12.6",
+    "nodemon": "^3.1.9",
+    "ts-node": "^10.9.2",
+    "uuid": "^11.0.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}
