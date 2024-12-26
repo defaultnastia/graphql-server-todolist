@@ -9,6 +9,16 @@
 
 ## important
 
+production link: https://graphql-server-todolist-production.up.railway.app/
+
+example
+
+```yml Get All Tasks
+curl --location 'https://graphql-server-todolist-production.up.railway.app/' \
+--header 'Content-Type: application/json' \
+--data '{"query":"query Query {tasks {code message count}}"}'
+```
+
 please read before launching:
 
 - main branch has tests, but data transforming mutates original data json (due
@@ -18,6 +28,7 @@ please read before launching:
 - feature-validation branch contains simple JOI validation example, though I
   decided to leave constraints in main implementation
 
-### not done:
+## not done:
 
-Implement pagination for the tasks query.
+Implement pagination for the tasks query (at least I added count to make it
+easier)

@@ -22,6 +22,7 @@
     "verbose": false
   },
   "include": ["src/**/*", "src/@types/**/*", "src/*.json"],
+  "exclude": ["**/*.test.ts"],
   "ts-node": {
     "swc": true
   }
