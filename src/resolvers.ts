@@ -1,5 +1,5 @@
-import * as datasources from "./datasources.js";
-import handleResponse from "./responseHandler.js";
+import * as datasources from "./datasources";
+import handleResponse from "./responseHandler";
 import {
   MutationTaskCreateArgs,
   MutationTaskUpdateArgs,

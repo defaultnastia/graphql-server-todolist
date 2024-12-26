@@ -1,5 +1,5 @@
 import { promises as fs } from "fs";
-import path from "node:path";
+// import path from "node:path";
 import { UUIDTypes, v4 as uuidv4 } from "uuid";
 
 import {
@@ -10,15 +10,24 @@ import {
   TaskUpdateArgs,
 } from "./types";
 
-const __dirname = import.meta.dirname;
-const tasksPath = path.join(__dirname, "data.json");
+const returnPath = () => {
+  let tasksPath = "./src/data.json";
+
+  //! == wanted to move data operations to dist but couldn't make path work with jest ==
+  // if (path) {
+  //   const __dirname = import.meta.dirname;
+  //   tasksPath = path.join(__dirname, "data.json");
+  // }
+
+  return tasksPath;
+};
 
 const rewriteTasks = async (newTasks: Task[]) => {
-  await fs.writeFile(tasksPath, JSON.stringify(newTasks, null, 2));
+  await fs.writeFile(returnPath(), JSON.stringify(newTasks, null, 2));
 };
 
 const listTasks = async (): Promise<Task[]> => {
-  const allTasks = await fs.readFile(tasksPath, "utf8");
+  const allTasks = await fs.readFile(returnPath(), "utf8");
   return JSON.parse(allTasks);
 };
 
