@@ -54,6 +54,16 @@ const resolvers = {
       const deletedTask = await datasources.deleteOneTask(id);
       return handleResponse({ code: deletedTask ? 200 : 404 });
     },
+
+    updateAllTasks: async () => {
+      const updatedTasks = await datasources.updateAllTasks();
+
+      return handleResponse({
+        code: 200,
+        count: updatedTasks.length,
+        data: updatedTasks,
+      });
+    },
   },
 };
 

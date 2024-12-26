@@ -125,3 +125,20 @@ export const deleteOneTask = async (id: UUIDTypes): Promise<boolean> => {
 
   return true;
 };
+
+export const updateAllTasks = async (): Promise<Task[]> => {
+  const tasks = await listTasks();
+
+  const updatedTasks: Task[] = [];
+  const NewTasksArray = tasks.map((task) => {
+    if (!task.completed) {
+      task.completed = true;
+      updatedTasks.push(task);
+    }
+    return task;
+  });
+
+  await rewriteTasks(NewTasksArray);
+
+  return updatedTasks;
+};
