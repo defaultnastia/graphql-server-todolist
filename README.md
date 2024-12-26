@@ -16,7 +16,7 @@ example
 ```yml Get All Tasks
 curl --location 'https://graphql-server-todolist-production.up.railway.app/' \
 --header 'Content-Type: application/json' \
---data '{"query":"query Query {tasks {code message count}}"}'
+--data '{"query":"query Query {tasks {code message count data {id title description completed dueDate}}}"}'
 ```
 
 please read before launching:
