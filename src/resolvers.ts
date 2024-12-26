@@ -9,6 +9,10 @@ import {
 } from "./types";
 import { DateTimeISOResolver } from "graphql-scalars";
 
+// ===== example of JOI validation (constraints in typeDefs should be removed before use) =====
+// import { UserInputError } from "apollo-server-core";
+// import Joi from "joi";
+
 const resolvers = {
   DateTimeISO: DateTimeISOResolver,
 
@@ -35,6 +39,20 @@ const resolvers = {
 
   Mutation: {
     createTask: async (_: any, { input }: MutationTaskCreateArgs) => {
+      // ===== example of JOI validation =====
+      // const taskCreateValidationSchema = Joi.object({
+      //   title: Joi.string().min(1).max(100).required(),
+      //   description: Joi.string().max(500).optional(),
+      //   completed: Joi.boolean().optional(),
+      //   dueDate: Joi.date().iso().required(),
+      // });
+
+      // const { error } = taskCreateValidationSchema.validate(input);
+      // if (error) {
+      //   throw new UserInputError(error.details[0].message);
+      // }
+      // ===== example of JOI validation =====
+
       const newTask = await datasources.createOneTask(input);
       return handleResponse({
         code: newTask ? 200 : 404,

@@ -29,7 +29,7 @@ const typeDefs = [
       title: String!
       description: String
       completed: Boolean
-      dueDate: DateTimeISO
+      dueDate: DateTimeISO!
     }
 
     input DatesRangeInput {
@@ -37,6 +37,7 @@ const typeDefs = [
       endDate: DateTimeISO
     }
 
+    # === between constraints and validation lib (e.g. JOI) I chose simpler approach as error text is quite understandable===
     input CreateTaskInput {
       title: String! @constraint(minLength: 1, maxLength: 100)
       description: String! @constraint(maxLength: 500)
@@ -44,6 +45,7 @@ const typeDefs = [
       completed: Boolean
     }
 
+    # === between constraints and validation lib (e.g. JOI) I chose simpler approach as error text is quite understandable===
     input UpdateTaskInput {
       title: String @constraint(minLength: 1, maxLength: 100)
       description: String @constraint(maxLength: 500)
