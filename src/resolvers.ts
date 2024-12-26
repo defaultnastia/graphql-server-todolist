@@ -1,29 +1,58 @@
-import tasks from "./data.json" assert { type: "json" };
-import { TaskQueryArgs, TasksQueryArgs } from "./types";
+import * as datasources from "./datasources.js";
+import handleResponse from "./responseHandler.js";
+import {
+  MutationTaskCreateArgs,
+  MutationTaskUpdateArgs,
+  MutationTaskDeleteArgs,
+  TaskQueryArgs,
+  TasksQueryArgs,
+} from "./types";
+import { DateTimeISOResolver } from "graphql-scalars";
 
 const resolvers = {
+  DateTimeISO: DateTimeISOResolver,
+
   Query: {
-    tasks(_: any, args: TasksQueryArgs) {
-      let tasksToReturn = tasks;
+    tasks: async (_: any, args: TasksQueryArgs) => {
+      const allTasks = await datasources.getAllTasks(args);
 
-      if (args.isCompleted) {
-        tasksToReturn = tasks.filter((task) => task.completed === true);
-      }
-
-      if (args.range) {
-        tasksToReturn = tasks.filter((task) => {
-          const taskDate = new Date(task.dueDate);
-          return (
-            taskDate <= args.range!.endDate && taskDate >= args.range!.startDate
-          );
-        });
-      }
-
-      return tasksToReturn;
+      return handleResponse({
+        code: 200,
+        count: allTasks.length,
+        data: allTasks,
+      });
     },
 
-    task(_: any, args: TaskQueryArgs) {
-      return tasks.find((task) => task.id === args.id);
+    task: async (_: any, args: TaskQueryArgs) => {
+      const searchedTask = await datasources.getOneTask(args);
+
+      return handleResponse({
+        code: searchedTask ? 200 : 404,
+        data: searchedTask,
+      });
+    },
+  },
+
+  Mutation: {
+    createTask: async (_: any, { input }: MutationTaskCreateArgs) => {
+      const newTask = await datasources.createOneTask(input);
+      return handleResponse({
+        code: newTask ? 200 : 404,
+        data: newTask,
+      });
+    },
+
+    updateTask: async (_: any, { input, id }: MutationTaskUpdateArgs) => {
+      const updatedTask = await datasources.updateOneTask(input, id);
+      return handleResponse({
+        code: updatedTask ? 200 : 404,
+        data: updatedTask,
+      });
+    },
+
+    deleteTask: async (_: any, { id }: MutationTaskDeleteArgs) => {
+      const deletedTask = await datasources.deleteOneTask(id);
+      return handleResponse({ code: deletedTask ? 200 : 404 });
     },
   },
 };

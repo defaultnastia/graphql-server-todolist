@@ -1,7 +1,7 @@
-import { UUID } from "crypto";
+import { UUIDTypes } from "uuid";
 
 export interface TasksQueryArgs {
-  isCompleted?: true;
+  completed?: boolean;
   range?: {
     startDate: Date;
     endDate: Date;
@@ -9,13 +9,45 @@ export interface TasksQueryArgs {
 }
 
 export interface TaskQueryArgs {
-  id: UUID;
+  id: UUIDTypes;
 }
 
 export interface Task {
-  id: UUID;
+  id: UUIDTypes;
   title: string;
-  description?: string;
+  description?: string | null;
   completed: boolean;
   dueDate: Date;
+}
+
+export interface TaskCreateArgs {
+  title: string;
+  description?: string | null;
+  completed?: boolean;
+  dueDate: Date;
+}
+
+export interface MutationTaskCreateArgs {
+  input: TaskCreateArgs;
+}
+
+export interface TaskUpdateArgs {
+  title?: string;
+  description?: string | null;
+  completed?: boolean;
+  dueDate?: Date;
+}
+export interface MutationTaskUpdateArgs {
+  input: TaskUpdateArgs;
+  id: UUIDTypes;
+}
+
+export interface MutationTaskDeleteArgs {
+  id: UUIDTypes;
+}
+
+export interface ResponseStatus {
+  code: number;
+  count?: number;
+  data?: any;
 }
