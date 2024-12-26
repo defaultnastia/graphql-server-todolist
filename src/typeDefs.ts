@@ -55,6 +55,7 @@ const typeDefs = [
       createTask(input: CreateTaskInput!): CreateNewTaskResponse!
       updateTask(id: ID!, input: UpdateTaskInput!): UpdateTaskResponse!
       deleteTask(id: ID!): DeleteTaskResponse
+      updateAllTasks: UpdateAllTasksResponse
     }
 
     type CreateNewTaskResponse {
@@ -72,6 +73,13 @@ const typeDefs = [
     type DeleteTaskResponse {
       code: Int!
       message: String!
+    }
+
+    type UpdateAllTasksResponse {
+      code: Int!
+      message: String!
+      count: Int!
+      data: [Task!]!
     }
   `,
 ];
